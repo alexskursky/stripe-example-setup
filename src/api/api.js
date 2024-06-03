@@ -7,9 +7,15 @@ export const getUser = async () => {
   return data;
 };
 
-export const createPaymentIntent = async (customerId) => {
+export const createPaymentIntent = async (
+  customerId,
+  counter,
+  paymentMethod,
+) => {
   const { data } = await request.post("/stripe/create-setup-intent", {
     customerId,
+    counter,
+    paymentMethod,
   });
   return data;
 };
@@ -19,4 +25,9 @@ export const addPaymentMethod = async (cardDetails, customerId) => {
     cardDetails,
   });
   return data;
+};
+
+export const getAllPaymentMethods = async (customerId) => {
+  const { data } = await request.get(`/user/${customerId}/payment-methods`);
+  return data.data;
 };
